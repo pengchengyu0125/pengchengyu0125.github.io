@@ -152,6 +152,91 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-学习笔记-3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3/">学习笔记(3)</a>
+    </h1>
+  
+
+        
+        <a href="/2020/08/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3/" class="archive-article-date">
+  	<time datetime="2020-08-14T03:05:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="IOC操作bean管理"><a href="#IOC操作bean管理" class="headerlink" title="IOC操作bean管理"></a>IOC操作bean管理</h2><h3 id="xml注入其他类型的属性"><a href="#xml注入其他类型的属性" class="headerlink" title="xml注入其他类型的属性"></a>xml注入其他类型的属性</h3><p>1、字面量<br>(1)null值</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;property name=<span class="string">"属性名"</span>&gt;</span><br><span class="line">	&lt;<span class="keyword">null</span>/&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+<p>(2)属性值包含特殊符号<br>可以把特殊符号进行转义<br>把带特殊符号内容写道CDATA</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;property name=<span class="string">"属性名"</span>&gt;</span><br><span class="line">	&lt;value&gt;&lt;![CDATA[特殊符号内容]]&gt;&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="注入属性-外部bean"><a href="#注入属性-外部bean" class="headerlink" title="注入属性-外部bean"></a>注入属性-外部bean</h3><p>1、创建两个类service类和dao类<br>2、在service中调用dao里面的方法<br>3、在Spring配置文件中进行配置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"别名"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"全路径"</span>&gt;</span><br><span class="line">	&lt; property name="属性名" ref="创建的类的对象bean标签id值"&gt;&lt;/ property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">&lt;bean id="别名" class="全路径"&gt;&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="注入属性-内部bean和级联赋值"><a href="#注入属性-内部bean和级联赋值" class="headerlink" title="注入属性-内部bean和级联赋值"></a>注入属性-内部bean和级联赋值</h3><p>(1)一对多关系，例如班级和学生，一个班级有多个学生，一个学生属于一个班级<br>(2)在实体类之间表示一对多关系，学生中表示所属班级，使用对象类型属性进行表示<br>(3)在Spring配置文件中进行配置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"别名"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"全路径"</span>&gt;</span><br><span class="line">	&lt;!—设置普通属性&gt;</span><br><span class="line">	&lt;property name="属性名" value="属性值"&gt;&lt;/property&gt;</span><br><span class="line">	&lt;!—设置对象类型属性&gt;</span><br><span class="line">	&lt;property name=<span class="string">"属性名"</span>&gt;</span><br><span class="line">		&lt;bean id=<span class="string">"别名"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"全路径"</span>&gt;</span><br><span class="line">			&lt;property name="属性名" value="属性值"&gt;&lt;/property&gt;</span><br><span class="line">		&lt;/bean&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+
+<p>级联赋值为<br>(1)</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"别名"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"全路径"</span>&gt;</span><br><span class="line">	&lt;!—设置普通属性&gt;</span><br><span class="line">	&lt;property name="属性名" value="属性值"&gt;&lt;/property&gt;</span><br><span class="line">	&lt;!—设置对象类型属性&gt;</span><br><span class="line">	&lt;property name="属性名" ref="对象类型属性别名"&gt;&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">&lt;bean id=<span class="string">"对象类型属性别名"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"全路径"</span>&gt;</span><br><span class="line">	&lt;property name="属性名" value="属性值"&gt;&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<p>(2)</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"别名"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"全路径"</span>&gt;</span><br><span class="line">	&lt;!—设置普通属性&gt;</span><br><span class="line">	&lt;property name="属性名" value="属性值"&gt;&lt;/property&gt;</span><br><span class="line">	&lt;!—设置对象类型属性&gt;</span><br><span class="line">	&lt;property name="属性名" ref="对象类型属性别名"&gt;&lt;/property&gt;</span><br><span class="line">	&lt;property name="属性名.对象内属性的名称" value="属性值"&gt;&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="xml注入集合类型的属性"><a href="#xml注入集合类型的属性" class="headerlink" title="xml注入集合类型的属性"></a>xml注入集合类型的属性</h3><p>1、注入数组类型属性<br>2、注入List集合类型属性<br>3、注入map集合类型属性<br>(1)创建类，定义数组、list、map、set类型属性，生成对应set方法<br>(2)在Spring配置文件中进行配置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"别名"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"全路径"</span>&gt;</span><br><span class="line">	&lt;!—数组类型属性注入&gt;</span><br><span class="line">	&lt;property name=<span class="string">"属性名"</span>&gt;</span><br><span class="line">		&lt;array&gt;</span><br><span class="line">			&lt;value&gt;属性值&lt;/value&gt;</span><br><span class="line">			…</span><br><span class="line">		&lt;/array&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;!—List类型属性注入&gt;</span><br><span class="line">	&lt;property name=<span class="string">"属性名"</span>&gt;</span><br><span class="line">		&lt;list&gt;</span><br><span class="line">			&lt;value&gt;属性值&lt;/value&gt;</span><br><span class="line">			…</span><br><span class="line">		&lt;/list&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;!—Map类型属性注入&gt;</span><br><span class="line">	&lt;property name=<span class="string">"属性名"</span>&gt;</span><br><span class="line">		&lt;map&gt;</span><br><span class="line">			&lt;entry key="" value=""&gt;&lt;/entry&gt;</span><br><span class="line">			…</span><br><span class="line">		&lt;/map&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;!—Set类型属性注入&gt;</span><br><span class="line">	&lt;property name=<span class="string">"属性名"</span>&gt;</span><br><span class="line">		&lt;set&gt;</span><br><span class="line">			&lt;value&gt;属性值&lt;/value&gt;</span><br><span class="line">			…</span><br><span class="line">		&lt;/set&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<p>在集合里面设置对象类型值</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!—List类型属性注入，值是对象的形式&gt;</span><br><span class="line">&lt;property name=<span class="string">"属性名"</span>&gt;</span><br><span class="line">	&lt;list&gt;</span><br><span class="line">		&lt;ref bean="设置的id值"&gt;&lt;/ref&gt;</span><br><span class="line">		…</span><br><span class="line">	&lt;/list&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;bean id=<span class="string">"对象类型属性别名"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"全路径"</span>&gt;</span><br><span class="line">	&lt;property name="属性名" value="属性值"&gt;&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+
+<p>把集合注入部分提取出来<br>(1)在Spring配置文件中引入名称空间util<br>(2)使用util标签完成list集合注入提取</p>
+<h3 id="FactoryBean"><a href="#FactoryBean" class="headerlink" title="FactoryBean"></a>FactoryBean</h3><p>1、Spring有两种类型bean，一种普通bean，另外一种FactoryBean<br>2、普通bean在配置文件中定义bean类型就是返回类型<br>3、FactoryBean在配置文件中定义bean类型可以和返回类型不一样<br>(1)创建类，让这个类作为FactoryBean，实现接口FactoryBean<br>(2)实现接口里面的方法，在实现的方法中定义返回的bean类型</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/08/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-学习笔记(2)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
