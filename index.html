@@ -152,6 +152,74 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-学习笔记-4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-4/">学习笔记(4)</a>
+    </h1>
+  
+
+        
+        <a href="/2020/09/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-4/" class="archive-article-date">
+  	<time datetime="2020-09-12T03:20:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="IOC操作bean管理"><a href="#IOC操作bean管理" class="headerlink" title="IOC操作bean管理"></a>IOC操作bean管理</h2><h3 id="bean的作用域"><a href="#bean的作用域" class="headerlink" title="bean的作用域"></a>bean的作用域</h3><p>1、在Spring中可以设置创建bean实例是单实例还是多实例<br>2、在Spring里面，默认情况下，bean是单实例对象<br>3、如何设置单实例还是多实例<br>(1)在Spring配置文件中bean标签里面有属性（scope）用于设置单实例还是多实例<br>(2)scope属性值：singleton表示单实例对象，prototype表示多实例对象<br>(3)singleton和prototype区别：singleton单实例prototype多实例。设置scope值为singleton的时候，加载Spring配置文件时就会创建单实例对象，设置scope值为prototype的时候，在调用getBean方法的时候创建多实例对象。</p>
+<h3 id="bean的生命周期"><a href="#bean的生命周期" class="headerlink" title="bean的生命周期"></a>bean的生命周期</h3><p>1、通过构造器创建bean实例（无参数构造）<br>2、为bean的属性设置值和对其他bean引用（调用set方法）<br>3、调用bean的初始化的方法（需要进行配置初始化的方法）<br>4、bean可以使用了（对象获取到了）<br>5、当容器关闭时，调用bean的销毁方法（需要进行配置销毁的方法）</p>
+<h3 id="xml自动装配"><a href="#xml自动装配" class="headerlink" title="xml自动装配"></a>xml自动装配</h3><p>1、什么是自动装配<br>根据指定装配规则（属性名称或者属性类型），Spring自动匹配属性值进行注入</p>
+<p>2、自动装配过程<br>根据属性名称自动注入，bean标签属性autowire配置自动装配，byName根据属性名注入并且bean的id值和类属性名称需要一致<br>根据属性类型自动注入，byType根据属性类型注入</p>
+<h3 id="外部属性文件"><a href="#外部属性文件" class="headerlink" title="外部属性文件"></a>外部属性文件</h3><p>1、直接配置数据库信息<br>配置连接池</p>
+<p>2、引入外部属性文件配置数据库连接池<br>创建外部属性文件，properties格式文件，写数据库信息<br>把外部properties属性文件引入到Spring配置文件中，引入Context名称空间，在Spring配置文件中使用标签引入外部属性文件</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/09/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-4/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-学习笔记-3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
